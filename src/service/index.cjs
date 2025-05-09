@@ -8,7 +8,9 @@ const { coursesRequestHandler } = require('./courses-service/index.cjs');
 const {
   enrollmentsRequestHandler,
 } = require('./enrollments-service/index.cjs');
+const { entiresRequestHandler } = require('./entries-service/index.cjs');
 const { loginsRequestHandler } = require('./logins-service/index.cjs');
+const { topicsRequestHandler } = require('./topics-service/index.cjs');
 const { usersRequestHandler } = require('./users-service/index.cjs');
 
 app.use(cors());
@@ -23,7 +25,9 @@ db.connect((err) => {
 
 coursesRequestHandler(app);
 enrollmentsRequestHandler(app);
+entiresRequestHandler(app);
 loginsRequestHandler(app);
+topicsRequestHandler(app);
 usersRequestHandler(app);
 
 app.listen(3001, () => {

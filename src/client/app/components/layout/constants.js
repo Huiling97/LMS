@@ -16,9 +16,18 @@ export const MENU_OPTIONS = {
   topics: {
     label: 'Topics',
     icon: NotificationOutlined,
-    path: '/entries',
+    path: '/topics',
     permissions: ['admin', 'user'],
-    subOptions: ['Entries'],
+    subOptions: [
+      {
+        label: 'All Topics',
+        path: '/topics',
+      },
+      {
+        label: 'Entries',
+        path: '/topics/entries',
+      },
+    ],
   },
   users: {
     label: 'Users',

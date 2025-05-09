@@ -17,7 +17,7 @@ const columns = [
   },
 ];
 
-const Enrollments = () => {
+const Logins = () => {
   const { state, setState } = useLoginsContext();
 
   useEffect(() => {
@@ -38,4 +38,4 @@ const Enrollments = () => {
   );
 };
 
-export default Enrollments;
+export default Logins;

@@ -1,6 +1,8 @@
 import { CoursesContextProvider } from './courses-context';
 import { EnrollmentsContextProvider } from './enrollments-context';
+import { EntriesContextProvider } from './entries-context';
 import { LoginsContextProvider } from './logins-context';
+import { TopicsContextProvider } from './topics-context';
 import { UsersContextProvider } from './users-context';
 
 const AllProviders = ({ children }) => {
@@ -8,7 +10,11 @@ const AllProviders = ({ children }) => {
     <UsersContextProvider>
       <EnrollmentsContextProvider>
         <LoginsContextProvider>
-          <CoursesContextProvider>{children}</CoursesContextProvider>
+          <TopicsContextProvider>
+            <EntriesContextProvider>
+              <CoursesContextProvider>{children}</CoursesContextProvider>
+            </EntriesContextProvider>
+          </TopicsContextProvider>
         </LoginsContextProvider>
       </EnrollmentsContextProvider>
     </UsersContextProvider>

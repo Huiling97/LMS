@@ -14,14 +14,14 @@ const headerOptions = HEADER_OPTIONS.map((key) => ({
 const menuOptions = Object.values(MENU_OPTIONS).map(
   ({ label, icon, path, subOptions }) => {
     return {
-      key: label,
+      key: path,
       icon: React.createElement(icon),
       label,
       path,
-      children: subOptions?.map((option) => {
+      children: subOptions?.map(({ label, path }) => {
         return {
-          key: `${label}-${option}`,
-          label: option,
+          key: path,
+          label,
         };
       }),
     };
@@ -33,30 +33,6 @@ const MainLayout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
-  const handleMenuClick = ({ key }) => {
-    const findPath = (key) => {
-      for (const item of menuOptions) {
-        if (item.key === key) {
-          return item.path;
-        }
-
-        if (item.children) {
-          const match = item.children.find((c) => c.key === key);
-
-          if (match) {
-            return match.path;
-          }
-        }
-      }
-      return null;
-    };
-
-    const path = findPath(key);
-    if (path) {
-      navigate(path);
-    }
-  };
 
   return (
     <Layout className='full-height-layout'>
@@ -77,7 +53,7 @@ const MainLayout = () => {
             defaultSelectedKeys={['Courses']}
             style={{ height: '100%', borderRight: 0 }}
             items={menuOptions}
-            onClick={handleMenuClick}
+            onClick={({ key }) => navigate(key)}
           />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
