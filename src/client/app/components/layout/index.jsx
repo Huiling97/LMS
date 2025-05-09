@@ -1,30 +1,27 @@
 import React from 'react';
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+
+import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
 
 const { Header, Content, Sider } = Layout;
 
-const items1 = ['1', '2', '3'].map((key) => ({
+const headerOptions = HEADER_OPTIONS.map((key) => ({
   key,
-  label: `nav ${key}`,
+  label: key,
 }));
 
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-  (icon, index) => {
-    const key = String(index + 1);
+const menuOptions = Object.values(MENU_OPTIONS).map(
+  ({ label, icon, path, subOptions }) => {
     return {
-      key: `sub${key}`,
+      key: label,
       icon: React.createElement(icon),
-      label: `subnav ${key}`,
-      children: Array.from({ length: 4 }).map((_, j) => {
-        const subKey = index * 4 + j + 1;
+      label,
+      path,
+      children: subOptions?.map((option) => {
         return {
-          key: subKey,
-          label: `option${subKey}`,
+          key: `${label}-${option}`,
+          label: option,
         };
       }),
     };
@@ -32,9 +29,35 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
 );
 
 const MainLayout = () => {
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleMenuClick = ({ key }) => {
+    const findPath = (key) => {
+      for (const item of menuOptions) {
+        if (item.key === key) {
+          return item.path;
+        }
+
+        if (item.children) {
+          const match = item.children.find((c) => c.key === key);
+
+          if (match) {
+            return match.path;
+          }
+        }
+      }
+      return null;
+    };
+
+    const path = findPath(key);
+    if (path) {
+      navigate(path);
+    }
+  };
+
   return (
     <Layout className='full-height-layout'>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
@@ -42,8 +65,8 @@ const MainLayout = () => {
         <Menu
           theme='dark'
           mode='horizontal'
-          defaultSelectedKeys={['2']}
-          items={items1}
+          defaultSelectedKeys={['Home']}
+          items={headerOptions}
           style={{ flex: 1, minWidth: 0 }}
         />
       </Header>
@@ -51,10 +74,10 @@ const MainLayout = () => {
         <Sider width={200} style={{ background: colorBgContainer }}>
           <Menu
             mode='inline'
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            defaultSelectedKeys={['Courses']}
             style={{ height: '100%', borderRight: 0 }}
-            items={items2}
+            items={menuOptions}
+            onClick={handleMenuClick}
           />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
@@ -71,11 +94,12 @@ const MainLayout = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            Content
+            <Outlet />
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
 };
+
 export default MainLayout;

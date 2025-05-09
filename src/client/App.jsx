@@ -1,12 +1,18 @@
 import './App.css';
-import Home from './app/routes/home';
 
-function App() {
-  return (
-    <>
-      <Home />
-    </>
-  );
-}
+import { Routes, Route } from 'react-router-dom';
+import Courses from './app/pages/courses';
+import Home from './app/pages/home';
+import AllProviders from './app/store';
+
+const App = () => (
+  <AllProviders>
+    <Routes>
+      <Route path='/*' element={<Home />}>
+        <Route path='courses' element={<Courses />} />
+      </Route>
+    </Routes>
+  </AllProviders>
+);
 
 export default App;
