@@ -5,12 +5,16 @@
   "type": "module",
   "scripts": {
     "dev:client": "vite",
+    "dev:service": "node ./src/service/index.cjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "antd": "^5.25.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
