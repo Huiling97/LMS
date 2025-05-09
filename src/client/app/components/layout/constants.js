@@ -27,15 +27,15 @@ export const MENU_OPTIONS = {
     permissions: ['admin'],
   },
   enrollment: {
-    label: 'Enrollment',
+    label: 'Enrollments',
     icon: UserOutlined,
-    path: '/enrollment',
+    path: '/enrollments',
     permissions: ['admin'],
   },
   login: {
-    label: 'Login',
+    label: 'Login Data',
     icon: UserOutlined,
-    path: '/loginInfo',
+    path: '/logins',
     permissions: ['admin'],
   },
 };

@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { CoursesContext } from '../store/courses-context';
-import { getCourses } from '../service/courses-service';
 import DataTable from '../components/table';
+import { getCourses } from '../service/courses-service';
+import { useCoursesContext } from '../store/courses-context';
 
 const columns = [
   {
@@ -33,12 +33,12 @@ const columns = [
 ];
 
 const Courses = () => {
-  const { courses, setCourses } = useContext(CoursesContext);
+  const { state, setState } = useCoursesContext();
 
   useEffect(() => {
     const getCoursesData = async () => {
       const courses = await getCourses();
-      setCourses(courses);
+      setState(courses);
     };
 
     getCoursesData();
@@ -47,7 +47,7 @@ const Courses = () => {
   return (
     <DataTable
       columns={columns}
-      data={courses}
+      data={state}
       rowKey={(record) => record.course_id}
     />
   );
