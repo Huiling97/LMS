@@ -1,6 +1,8 @@
 import {
+  BarsOutlined,
   LaptopOutlined,
-  NotificationOutlined,
+  LoginOutlined,
+  MessageOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 
@@ -14,8 +16,8 @@ export const MENU_OPTIONS = {
     permissions: ['admin', 'instructor'],
   },
   topics: {
-    label: 'Topics',
-    icon: NotificationOutlined,
+    label: 'Discussions',
+    icon: MessageOutlined,
     path: '/topics',
     permissions: ['admin', 'instructor'],
     subOptions: [
@@ -37,13 +39,13 @@ export const MENU_OPTIONS = {
   },
   enrollment: {
     label: 'Enrollments',
-    icon: UserOutlined,
+    icon: BarsOutlined,
     path: '/enrollments',
     permissions: ['admin'],
   },
   login: {
     label: 'Login Data',
-    icon: UserOutlined,
+    icon: LoginOutlined,
     path: '/logins',
     permissions: ['admin'],
   },

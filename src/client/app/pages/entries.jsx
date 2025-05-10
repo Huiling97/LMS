@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import DataTable from '../components/table';
-import { getEntries } from '../service/entries-service';
+import { getEntries, getEntriesByTopicId } from '../service/entries-service';
 import { useEntriesContext } from '../store/entries-context';
+import { TopicsContext } from '../store/topics-context';
 
 const columns = [
   {
@@ -48,11 +50,16 @@ const columns = [
 ];
 
 const Entries = () => {
+  const { courseId, topicId } = useParams();
+  const { getSelectedTopic } = useContext(TopicsContext);
   const { state, setState } = useEntriesContext();
 
   useEffect(() => {
     const getEntriesData = async () => {
-      const entries = await getEntries();
+      const entries =
+        courseId && topicId
+          ? await getEntriesByTopicId(courseId, topicId)
+          : await getEntries();
       setState(entries);
     };
 
@@ -60,11 +67,15 @@ const Entries = () => {
   }, []);
 
   return (
-    <DataTable
-      columns={columns}
-      data={state}
-      rowKey={(record) => record.entry_id}
-    />
+    <>
+      <h1>Topic Name: {getSelectedTopic(topicId)?.topic_title}</h1>
+      <h2>Topic ID: {topicId}</h2>
+      <DataTable
+        columns={columns}
+        data={state}
+        rowKey={(record) => record.entry_id}
+      />
+    </>
   );
 };
 
