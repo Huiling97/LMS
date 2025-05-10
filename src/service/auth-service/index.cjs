@@ -1,9 +1,8 @@
 const { verifyLoginAuth } = require('./database.cjs');
-
-const API_PATH = '/api/v1/login';
+const { URLConstants } = require('../util/url-constants.cjs');
 
 const loginAuthHandler = (app) => {
-  app.post(`${API_PATH}`, async (req, res) => {
+  app.post(`${URLConstants.LOGIN_PATH}`, async (req, res) => {
     const { username, password } = req?.body;
 
     try {
