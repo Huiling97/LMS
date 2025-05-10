@@ -15,4 +15,20 @@ const getEntries = async () => {
   }
 };
 
-export { getEntries };
+const getEntriesByTopicId = async (courseId, topicId) => {
+  try {
+    const response = await axios.get(
+      `${URLConstants.COURSES_PATH}/${courseId}/topics/${topicId}/entries`
+    );
+
+    if (response) {
+      const { data } = response;
+
+      return data;
+    }
+  } catch (e) {
+    throw e;
+  }
+};
+
+export { getEntries, getEntriesByTopicId };

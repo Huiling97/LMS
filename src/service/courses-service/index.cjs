@@ -1,9 +1,8 @@
 const { getCourses } = require('./database.cjs');
-
-const API_PATH = '/api/v1/courses';
+const { URLConstants } = require('../util/url-constants.cjs');
 
 const coursesRequestHandler = (app) => {
-  app.get(`${API_PATH}/all`, async (_, res) => {
+  app.get(`${URLConstants.COURSES_PATH}/all`, async (_, res) => {
     try {
       const courses = await getCourses();
 
