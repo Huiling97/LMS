@@ -1,11 +1,11 @@
+@use '_layout.scss';
+
+@use 'pages/_login.scss';
+
 html,
 body,
 #root {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-.full-height-layout {
-  min-height: 100vh;
 }
