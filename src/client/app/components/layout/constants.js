@@ -4,20 +4,20 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 
-export const HEADER_OPTIONS = ['Home', 'Settings'];
+export const HEADER_OPTIONS = ['Home', 'Logout'];
 
 export const MENU_OPTIONS = {
   courses: {
     label: 'Courses',
     icon: LaptopOutlined,
     path: '/courses',
-    permissions: ['admin', 'user'],
+    permissions: ['admin', 'instructor'],
   },
   topics: {
     label: 'Topics',
     icon: NotificationOutlined,
     path: '/topics',
-    permissions: ['admin', 'user'],
+    permissions: ['admin', 'instructor'],
     subOptions: [
       {
         label: 'All Topics',
