@@ -16,7 +16,7 @@ const columns = [
     key: 'user_name',
   },
   {
-    title: 'Time User was Deleted',
+    title: 'Deleted At',
     dataIndex: 'user_deleted_at',
     key: 'user_deleted_at',
   },

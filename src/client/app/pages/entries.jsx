@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Divider } from 'antd';
 
 import DataTable from '../components/table';
 import { getEntries, getEntriesByTopicId } from '../service/entries-service';
@@ -54,6 +55,21 @@ const Entries = () => {
   const { getSelectedTopic } = useContext(TopicsContext);
   const { state, setState } = useEntriesContext();
 
+  const topicTitle = getSelectedTopic(topicId)?.topic_title;
+
+  const displayHeader = (topicTitle, topicId) => {
+    return (
+      <>
+        <h1>Topic Title: {topicTitle}</h1>
+        <h2>Topic ID: {topicId}</h2>
+        <Divider />
+        <h5>
+          Entries for {topicTitle}, {topicId}
+        </h5>
+      </>
+    );
+  };
+
   useEffect(() => {
     const getEntriesData = async () => {
       const entries =
@@ -68,8 +84,7 @@ const Entries = () => {
 
   return (
     <>
-      <h1>Topic Name: {getSelectedTopic(topicId)?.topic_title}</h1>
-      <h2>Topic ID: {topicId}</h2>
+      {topicTitle && topicId && displayHeader(topicTitle, topicId)}
       <DataTable
         columns={columns}
         data={state}

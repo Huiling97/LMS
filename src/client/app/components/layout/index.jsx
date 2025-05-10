@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import { createElement, useContext } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 
 import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
 import Breadcrumbs from '../breadcrumb';
@@ -10,16 +10,19 @@ const { Header, Content, Sider } = Layout;
 
 const MainLayout = () => {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
+  const {
+    user: { role = '', username = '' },
+    logout,
+  } = useContext(AuthContext);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   const menuOptions = Object.values(MENU_OPTIONS)
-    .filter(({ permissions }) => permissions.includes(user?.role))
+    .filter(({ permissions }) => permissions.includes(role))
     .map(({ label, icon, path, subOptions }) => ({
       key: path,
-      icon: React.createElement(icon),
+      icon: createElement(icon),
       label,
       path,
       children: subOptions?.map(({ label, path }) => ({
@@ -38,8 +41,7 @@ const MainLayout = () => {
 
   return (
     <Layout className='layout-container'>
-      <Header style={{ display: 'flex', alignItems: 'center' }}>
-        <div className='demo-logo' />
+      <Header className='layout-header'>
         <Menu
           theme='dark'
           mode='horizontal'
@@ -56,25 +58,34 @@ const MainLayout = () => {
         <Sider width={200} style={{ background: colorBgContainer }}>
           <Menu
             mode='inline'
-            defaultSelectedKeys={['Courses']}
+            defaultSelectedKeys={[`${menuOptions[0].label}`]}
             style={{ height: '100%', borderRight: 0 }}
             items={menuOptions}
             onClick={({ key }) => navigate(key)}
           />
         </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumbs />
-          <Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Outlet />
-          </Content>
+        <Layout className='layout-inner-wrapper'>
+          {location.pathname === '/' ? (
+            <div>
+              <h1>Welcome, {username}!</h1>
+            </div>
+          ) : (
+            <>
+              <Breadcrumbs />
+              <Content
+                style={{
+                  padding: 24,
+                  margin: 0,
+                  minHeight: 280,
+                  background: colorBgContainer,
+                  borderRadius: borderRadiusLG,
+                }}
+              >
+                <Outlet />{' '}
+                {/* This is where the nested routes will be rendered */}
+              </Content>
+            </>
+          )}
         </Layout>
       </Layout>
     </Layout>
