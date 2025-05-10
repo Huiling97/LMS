@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Divider } from 'antd';
 
 import DataTable from '../components/table';
 import { getTopics, getTopicsByCourseId } from '../service/topics-service';
@@ -19,7 +20,6 @@ const Topics = () => {
       key: 'topic_id',
       render: (text, { course_id, topic_id }) => (
         <a
-          href='#'
           onClick={() =>
             navigate(`/courses/${course_id}/topics/${topic_id}/entries`)
           }
@@ -65,6 +65,21 @@ const Topics = () => {
     },
   ];
 
+  const courseName = getSelectedCourse(courseId)?.course_name;
+
+  const displayHeader = (courseName, courseId) => {
+    return (
+      <>
+        <h1>Course Name: {courseName}</h1>
+        <h2>Course ID: {courseId}</h2>
+        <Divider />
+        <h5>
+          Topics for {courseName}, {courseId}
+        </h5>
+      </>
+    );
+  };
+
   useEffect(() => {
     const getTopicsData = async () => {
       const topics = courseId
@@ -79,8 +94,7 @@ const Topics = () => {
 
   return (
     <>
-      <h1>Course Name: {getSelectedCourse(courseId)?.course_name}</h1>
-      <h2>Course ID: {courseId}</h2>
+      {courseName && courseId && displayHeader(courseName, courseId)}
       <DataTable
         columns={columns}
         data={topics}

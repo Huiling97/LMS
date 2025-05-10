@@ -15,9 +15,7 @@ const Courses = () => {
       dataIndex: 'course_id',
       key: 'course_id',
       render: (text, { course_id }) => (
-        <a href='#' onClick={() => navigate(`/courses/${course_id}/topics`)}>
-          {text}
-        </a>
+        <a onClick={() => navigate(`/courses/${course_id}/topics`)}>{text}</a>
       ),
     },
     {

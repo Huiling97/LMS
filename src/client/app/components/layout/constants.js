@@ -22,7 +22,7 @@ export const MENU_OPTIONS = {
     permissions: ['admin', 'instructor'],
     subOptions: [
       {
-        label: 'All Topics',
+        label: 'Topics',
         path: '/topics',
       },
       {
