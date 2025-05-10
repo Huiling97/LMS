@@ -1,9 +1,8 @@
 const { getEnrollments } = require('./database.cjs');
-
-const API_PATH = '/api/v1/enrollments';
+const { URLConstants } = require('../util/url-constants.cjs');
 
 const enrollmentsRequestHandler = (app) => {
-  app.get(`${API_PATH}/all`, async (_, res) => {
+  app.get(`${URLConstants.ENROLLMENTS_PATH}/all`, async (_, res) => {
     try {
       const enrollments = await getEnrollments();
 

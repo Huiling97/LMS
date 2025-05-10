@@ -1,9 +1,8 @@
 const { getLogins } = require('./database.cjs');
-
-const API_PATH = '/api/v1/logins';
+const { URLConstants } = require('../util/url-constants.cjs');
 
 const loginsRequestHandler = (app) => {
-  app.get(`${API_PATH}/all`, async (_, res) => {
+  app.get(`${URLConstants.LOGINS_PATH}/all`, async (_, res) => {
     try {
       const logins = await getLogins();
 

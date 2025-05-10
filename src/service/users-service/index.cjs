@@ -1,9 +1,8 @@
 const { getUsers } = require('./database.cjs');
-
-const API_PATH = '/api/v1/users';
+const { URLConstants } = require('../util/url-constants.cjs');
 
 const usersRequestHandler = (app) => {
-  app.get(`${API_PATH}/all`, async (_, res) => {
+  app.get(`${URLConstants.USERS_PATH}/all`, async (_, res) => {
     try {
       const users = await getUsers();
 

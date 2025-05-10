@@ -3,18 +3,14 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
 import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
+import Breadcrumbs from '../breadcrumb';
 import { AuthContext } from '../../store/auth-context';
 
 const { Header, Content, Sider } = Layout;
 
-const headerOptions = HEADER_OPTIONS.map((key) => ({
-  key,
-  label: key,
-}));
-
 const MainLayout = () => {
-  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -48,7 +44,10 @@ const MainLayout = () => {
           theme='dark'
           mode='horizontal'
           defaultSelectedKeys={['Home']}
-          items={headerOptions}
+          items={HEADER_OPTIONS.map((key) => ({
+            key,
+            label: key,
+          }))}
           style={{ flex: 1, minWidth: 0 }}
           onClick={handleHeaderClick}
         />
@@ -64,10 +63,7 @@ const MainLayout = () => {
           />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb
-            items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-            style={{ margin: '16px 0' }}
-          />
+          <Breadcrumbs />
           <Content
             style={{
               padding: 24,
