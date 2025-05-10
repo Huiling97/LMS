@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
 
 import Auth from './app/pages/auth';
 import Courses from './app/pages/courses';
@@ -14,7 +13,7 @@ import AllProviders from './app/store';
 
 const App = () => (
   <AllProviders>
-    <div className='full-height-layout'>
+    <div>
       <Routes>
         <Route path='/login' element={<Login />} />
 

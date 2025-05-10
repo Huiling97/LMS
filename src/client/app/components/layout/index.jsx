@@ -41,7 +41,7 @@ const MainLayout = () => {
   };
 
   return (
-    <Layout className='full-height-layout'>
+    <Layout className='layout-container'>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
         <div className='demo-logo' />
         <Menu

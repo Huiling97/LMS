@@ -13,13 +13,13 @@ const Login = () => {
       await login(values.username, values.password);
       setError(null);
     } catch (e) {
-      setError('Invalid credentials');
+      setError('Invalid Credentials');
     }
   };
 
   return (
-    <div>
-      {error && <AlertContent message={error} type='error' />}
+    <div className='login-form-container'>
+      <div>{error && <AlertContent message={error} type='error' />}</div>
       <Form
         name='basic'
         labelCol={{ span: 8 }}
