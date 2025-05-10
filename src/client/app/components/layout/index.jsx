@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
 import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
+import { AuthContext } from '../../store/auth-context';
 
 const { Header, Content, Sider } = Layout;
 
@@ -11,28 +12,33 @@ const headerOptions = HEADER_OPTIONS.map((key) => ({
   label: key,
 }));
 
-const menuOptions = Object.values(MENU_OPTIONS).map(
-  ({ label, icon, path, subOptions }) => {
-    return {
-      key: path,
-      icon: React.createElement(icon),
-      label,
-      path,
-      children: subOptions?.map(({ label, path }) => {
-        return {
-          key: path,
-          label,
-        };
-      }),
-    };
-  }
-);
-
 const MainLayout = () => {
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const menuOptions = Object.values(MENU_OPTIONS)
+    .filter(({ permissions }) => permissions.includes(user?.role))
+    .map(({ label, icon, path, subOptions }) => ({
+      key: path,
+      icon: React.createElement(icon),
+      label,
+      path,
+      children: subOptions?.map(({ label, path }) => ({
+        key: path,
+        label,
+      })),
+    }));
+
+  const handleHeaderClick = ({ key }) => {
+    if (key === 'Logout') {
+      logout();
+    } else if (key === 'Home') {
+      navigate('/');
+    }
+  };
 
   return (
     <Layout className='full-height-layout'>
@@ -44,6 +50,7 @@ const MainLayout = () => {
           defaultSelectedKeys={['Home']}
           items={headerOptions}
           style={{ flex: 1, minWidth: 0 }}
+          onClick={handleHeaderClick}
         />
       </Header>
       <Layout>
