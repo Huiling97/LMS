@@ -18,7 +18,6 @@ export const MENU_OPTIONS = {
   topics: {
     label: 'Discussions',
     icon: MessageOutlined,
-    path: '/topics',
     permissions: ['admin', 'instructor'],
     subOptions: [
       {
