@@ -4,6 +4,7 @@ import { Layout, Menu, theme } from 'antd';
 
 import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
 import Breadcrumbs from '../breadcrumb';
+import Home from '../../pages/home';
 import { AuthContext } from '../../store/auth-context';
 
 const { Header, Content, Sider } = Layout;
@@ -67,7 +68,7 @@ const MainLayout = () => {
         <Layout className='layout-inner-wrapper'>
           {location.pathname === '/' ? (
             <div>
-              <h1>Welcome, {username}!</h1>
+              <Home />
             </div>
           ) : (
             <>
