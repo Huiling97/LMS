@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 
+import MainLayout from './app/components/layout';
 import Auth from './app/pages/auth';
 import Courses from './app/pages/courses';
 import Enrollments from './app/pages/enrollments';
 import Entries from './app/pages/entries';
-import Home from './app/pages/home';
 import Login from './app/pages/login';
 import Logins from './app/pages/logins';
 import Topics from './app/pages/topics';
@@ -21,7 +21,7 @@ const App = () => (
           path='/*'
           element={
             <Auth>
-              <Home />
+              <MainLayout />
             </Auth>
           }
         >

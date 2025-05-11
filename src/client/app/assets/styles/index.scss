@@ -1,6 +1,8 @@
-@use 'breadcrumb.scss';
+@use '_breadcrumb.scss';
+@use '_card.scss';
 @use '_layout.scss';
 
+@use 'pages/_home.scss';
 @use 'pages/_login.scss';
 
 html,
