@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Divider } from 'antd';
 
@@ -7,64 +7,65 @@ import { getTopics, getTopicsByCourseId } from '../service/topics-service';
 import { CoursesContext } from '../store/courses-context';
 import { TopicsContext } from '../store/topics-context';
 
+const getTopicColumns = (navigate) => [
+  {
+    title: 'Topic ID',
+    dataIndex: 'topic_id',
+    key: 'topic_id',
+    render: (text, { course_id, topic_id }) => (
+      <a
+        onClick={() =>
+          navigate(`/courses/${course_id}/topics/${topic_id}/entries`)
+        }
+      >
+        {text}
+      </a>
+    ),
+  },
+  {
+    title: 'Topic Title',
+    dataIndex: 'topic_title',
+    key: 'topic_title',
+  },
+  {
+    title: 'Topic Content',
+    dataIndex: 'topic_content',
+    key: 'topic_content',
+  },
+  {
+    title: 'Created At',
+    dataIndex: 'topic_created_at',
+    key: 'topic_created_at',
+  },
+  {
+    title: 'Deleted At',
+    dataIndex: 'topic_deleted_at',
+    key: 'topic_deleted_at',
+  },
+  {
+    title: 'Topic Status',
+    dataIndex: 'topic_state',
+    key: 'topic_state',
+  },
+  {
+    title: 'Course ID',
+    dataIndex: 'course_id',
+    key: 'course_id',
+  },
+  {
+    title: 'Created By',
+    dataIndex: 'topic_posted_by_user_id',
+    key: 'topic_posted_by_user_id',
+  },
+];
+
 const Topics = () => {
   const navigate = useNavigate();
   const { courseId } = useParams();
   const { getSelectedCourse } = useContext(CoursesContext);
   const { topics, setTopics } = useContext(TopicsContext);
 
-  const columns = [
-    {
-      title: 'Topic ID',
-      dataIndex: 'topic_id',
-      key: 'topic_id',
-      render: (text, { course_id, topic_id }) => (
-        <a
-          onClick={() =>
-            navigate(`/courses/${course_id}/topics/${topic_id}/entries`)
-          }
-        >
-          {text}
-        </a>
-      ),
-    },
-    {
-      title: 'Topic Title',
-      dataIndex: 'topic_title',
-      key: 'topic_title',
-    },
-    {
-      title: 'Topic Content',
-      dataIndex: 'topic_content',
-      key: 'topic_content',
-    },
-    {
-      title: 'Created At',
-      dataIndex: 'topic_created_at',
-      key: 'topic_created_at',
-    },
-    {
-      title: 'Deleted At',
-      dataIndex: 'topic_deleted_at',
-      key: 'topic_deleted_at',
-    },
-    {
-      title: 'Topic Status',
-      dataIndex: 'topic_state',
-      key: 'topic_state',
-    },
-    {
-      title: 'Course ID',
-      dataIndex: 'course_id',
-      key: 'course_id',
-    },
-    {
-      title: 'Created By',
-      dataIndex: 'topic_posted_by_user_id',
-      key: 'topic_posted_by_user_id',
-    },
-  ];
-
+  const columns = useMemo(() => getTopicColumns(navigate), [navigate]);
   const courseName = getSelectedCourse(courseId)?.course_name;
 
   const displayHeader = (courseName, courseId) => {
@@ -82,15 +83,19 @@ const Topics = () => {
 
   useEffect(() => {
     const getTopicsData = async () => {
-      const topics = courseId
-        ? await getTopicsByCourseId(courseId)
-        : await getTopics();
+      try {
+        const topics = courseId
+          ? await getTopicsByCourseId(courseId)
+          : await getTopics();
 
-      setTopics(topics);
+        setTopics(topics);
+      } catch (e) {
+        console.error('Failed to fetch topics:', error);
+      }
     };
 
     getTopicsData();
-  }, []);
+  }, [navigate]);
 
   return (
     <>

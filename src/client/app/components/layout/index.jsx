@@ -1,5 +1,5 @@
 import { createElement, useContext } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu, theme } from 'antd';
 
 import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
@@ -10,14 +10,17 @@ import { AuthContext } from '../../store/auth-context';
 const { Header, Content, Sider } = Layout;
 
 const MainLayout = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const {
-    user: { role = '', username = '' },
+    user: { role = '' },
     logout,
   } = useContext(AuthContext);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const currentPath = location.pathname;
 
   const menuOptions = Object.values(MENU_OPTIONS)
     .filter(({ permissions }) => permissions.includes(role))
@@ -46,7 +49,7 @@ const MainLayout = () => {
         <Menu
           theme='dark'
           mode='horizontal'
-          defaultSelectedKeys={['Home']}
+          selectedKeys={[currentPath === '/' ? 'Home' : '']}
           items={HEADER_OPTIONS.map((key) => ({
             key,
             label: key,
@@ -59,7 +62,7 @@ const MainLayout = () => {
         <Sider width={200} style={{ background: colorBgContainer }}>
           <Menu
             mode='inline'
-            defaultSelectedKeys={[`${menuOptions[0].label}`]}
+            selectedKeys={[currentPath]}
             style={{ height: '100%', borderRight: 0 }}
             items={menuOptions}
             onClick={({ key }) => navigate(key)}
@@ -82,8 +85,7 @@ const MainLayout = () => {
                   borderRadius: borderRadiusLG,
                 }}
               >
-                <Outlet />{' '}
-                {/* This is where the nested routes will be rendered */}
+                <Outlet />
               </Content>
             </>
           )}

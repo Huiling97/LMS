@@ -1,7 +1,7 @@
 import { Breadcrumb } from 'antd';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
-const routeLabelMap = {
+const ROUTE_MAP = {
   courses: 'Courses',
   topics: 'Topics',
   entries: 'Entries',
@@ -27,7 +27,6 @@ const Breadcrumbs = () => {
   const { courseId, topicId } = useParams();
 
   const pathSnippets = location.pathname.split('/').filter(Boolean);
-
   const breadcrumbs = pathSnippets.reduce(
     ({ items, path }, snippet) => {
       if (!isNaN(snippet)) return { items, path };
@@ -39,7 +38,7 @@ const Breadcrumbs = () => {
         topicId,
         fallbackPath: nextPath,
       });
-      const title = routeLabelMap[snippet] || snippet;
+      const title = ROUTE_MAP[snippet] || snippet;
 
       return {
         path: nextPath,

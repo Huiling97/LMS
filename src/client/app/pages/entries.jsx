@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Divider } from 'antd';
 
 import DataTable from '../components/table';
@@ -51,6 +51,7 @@ const columns = [
 ];
 
 const Entries = () => {
+  const navigate = useNavigate();
   const { courseId, topicId } = useParams();
   const { getSelectedTopic } = useContext(TopicsContext);
   const { state, setState } = useEntriesContext();
@@ -80,7 +81,7 @@ const Entries = () => {
     };
 
     getEntriesData();
-  }, []);
+  }, [navigate]);
 
   return (
     <>
