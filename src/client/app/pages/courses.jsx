@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DataTable from '../components/table';
 import { getCourses } from '../service/courses-service';
 import { CoursesContext } from '../store/courses-context';
+import { useError } from '../store/error-context';
 
 const getCourseColumns = (navigate) => [
   {
@@ -39,6 +40,7 @@ const getCourseColumns = (navigate) => [
 const Courses = () => {
   const navigate = useNavigate();
   const { courses, setCourses } = useContext(CoursesContext);
+  const { clearError, setError } = useError();
 
   const columns = useMemo(() => getCourseColumns(navigate), [navigate]);
 
@@ -48,8 +50,9 @@ const Courses = () => {
         const courses = await getCourses();
 
         setCourses(courses);
+        clearError();
       } catch (e) {
-        console.error('Failed to fetch courses:', error);
+        setError('Failed to fetch courses data');
       }
     };
 

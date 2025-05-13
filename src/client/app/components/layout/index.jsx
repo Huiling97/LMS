@@ -4,8 +4,10 @@ import { Layout, Menu, theme } from 'antd';
 
 import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
 import Breadcrumbs from '../breadcrumb';
+import AlertContent from '../../components/alert/index';
 import Home from '../../pages/home';
 import { AuthContext } from '../../store/auth-context';
+import { useError } from '../../store/error-context';
 
 const { Header, Content, Sider } = Layout;
 
@@ -16,6 +18,7 @@ const MainLayout = () => {
     user: { role = '' },
     logout,
   } = useContext(AuthContext);
+  const { error, clearError } = useError();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -45,6 +48,14 @@ const MainLayout = () => {
 
   return (
     <Layout className='layout-container'>
+      {error && (
+        <AlertContent
+          message={error}
+          type='error'
+          closable
+          onClose={clearError}
+        />
+      )}
       <Header className='layout-header'>
         <Menu
           theme='dark'
@@ -68,6 +79,7 @@ const MainLayout = () => {
             onClick={({ key }) => navigate(key)}
           />
         </Sider>
+
         <Layout className='layout-inner-wrapper'>
           {location.pathname === '/' ? (
             <div>

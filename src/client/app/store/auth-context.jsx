@@ -13,9 +13,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
+
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+
     setLoading(false);
   }, []);
 
@@ -28,6 +30,7 @@ const AuthProvider = ({ children }) => {
 
       if (res) {
         const { data } = res;
+
         setUser(data);
         sessionStorage.setItem('user', JSON.stringify(data));
         navigate('/');

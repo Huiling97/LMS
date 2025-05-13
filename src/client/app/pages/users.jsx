@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import DataTable from '../components/table';
 import { getUsers } from '../service/users-service';
+import { useError } from '../store/error-context';
 import { useUsersContext } from '../store/users-context';
 
 const columns = [
@@ -29,11 +30,18 @@ const columns = [
 
 const Users = () => {
   const { state, setState } = useUsersContext();
+  const { clearError, setError } = useError();
 
   useEffect(() => {
     const getUsersData = async () => {
-      const users = await getUsers();
-      setState(users);
+      try {
+        const users = await getUsers();
+
+        setState(users);
+        clearError();
+      } catch (e) {
+        setError('Failed to fetch users data');
+      }
     };
 
     getUsersData();

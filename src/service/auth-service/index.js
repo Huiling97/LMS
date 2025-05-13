@@ -1,4 +1,4 @@
-import { verifyLoginAuth } from './database.cjs';
+import { verifyLoginAuth } from './database.js';
 import URLConstants from '../util/url-constants.js';
 
 const loginAuthHandler = (app) => {

@@ -5,6 +5,7 @@ import { Divider } from 'antd';
 import DataTable from '../components/table';
 import { getTopics, getTopicsByCourseId } from '../service/topics-service';
 import { CoursesContext } from '../store/courses-context';
+import { useError } from '../store/error-context';
 import { TopicsContext } from '../store/topics-context';
 
 const getTopicColumns = (navigate) => [
@@ -64,6 +65,7 @@ const Topics = () => {
   const { courseId } = useParams();
   const { getSelectedCourse } = useContext(CoursesContext);
   const { topics, setTopics } = useContext(TopicsContext);
+  const { clearError, setError } = useError();
 
   const columns = useMemo(() => getTopicColumns(navigate), [navigate]);
   const courseName = getSelectedCourse(courseId)?.course_name;
@@ -89,8 +91,9 @@ const Topics = () => {
           : await getTopics();
 
         setTopics(topics);
+        clearError();
       } catch (e) {
-        console.error('Failed to fetch topics:', error);
+        setError('Failed to fetch topics data');
       }
     };
 

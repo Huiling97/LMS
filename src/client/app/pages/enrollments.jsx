@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import DataTable from '../components/table';
 import { getEnrollments } from '../service/enrollments-service';
 import { useEnrollmentsContext } from '../store/enrollments-context';
+import { useError } from '../store/error-context';
 
 const columns = [
   {
@@ -29,11 +30,18 @@ const columns = [
 
 const Enrollments = () => {
   const { state, setState } = useEnrollmentsContext();
+  const { clearError, setError } = useError();
 
   useEffect(() => {
     const getEnrollmentsData = async () => {
-      const enrollments = await getEnrollments();
-      setState(enrollments);
+      try {
+        const enrollments = await getEnrollments();
+
+        setState(enrollments);
+        clearError();
+      } catch (e) {
+        setError('Failed to fetch enrollments data');
+      }
     };
 
     getEnrollmentsData();
