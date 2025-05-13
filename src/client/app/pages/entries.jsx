@@ -5,6 +5,7 @@ import { Divider } from 'antd';
 import DataTable from '../components/table';
 import { getEntries, getEntriesByTopicId } from '../service/entries-service';
 import { useEntriesContext } from '../store/entries-context';
+import { useError } from '../store/error-context';
 import { TopicsContext } from '../store/topics-context';
 
 const columns = [
@@ -55,6 +56,7 @@ const Entries = () => {
   const { courseId, topicId } = useParams();
   const { getSelectedTopic } = useContext(TopicsContext);
   const { state, setState } = useEntriesContext();
+  const { clearError, setError } = useError();
 
   const topicTitle = getSelectedTopic(topicId)?.topic_title;
 
@@ -73,11 +75,17 @@ const Entries = () => {
 
   useEffect(() => {
     const getEntriesData = async () => {
-      const entries =
-        courseId && topicId
-          ? await getEntriesByTopicId(courseId, topicId)
-          : await getEntries();
-      setState(entries);
+      try {
+        const entries =
+          courseId && topicId
+            ? await getEntriesByTopicId(courseId, topicId)
+            : await getEntries();
+
+        setState(entries);
+        clearError();
+      } catch (e) {
+        setError('Failed to fetch entries data');
+      }
     };
 
     getEntriesData();

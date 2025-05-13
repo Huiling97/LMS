@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import DataTable from '../components/table';
 import { getLogins } from '../service/logins-service';
 import { useLoginsContext } from '../store/logins-context';
+import { useError } from '../store/error-context';
 
 const columns = [
   {
@@ -18,12 +19,19 @@ const columns = [
 ];
 
 const Logins = () => {
+  const { clearError, setError } = useError();
   const { state, setState } = useLoginsContext();
 
   useEffect(() => {
     const getLoginsData = async () => {
-      const logins = await getLogins();
-      setState(logins);
+      try {
+        const logins = await getLogins();
+
+        setState(logins);
+        clearError();
+      } catch (e) {
+        setError('Failed to fetch logins data');
+      }
     };
 
     getLoginsData();

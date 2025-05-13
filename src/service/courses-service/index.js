@@ -8,7 +8,7 @@ const coursesRequestHandler = (app) => {
 
       res.status(200).send(courses);
     } catch (e) {
-      res.status(500).send({ error: 'Internal server error' });
+      res.status(500).send({ error: e.message || 'Database error' });
     }
   });
 };
