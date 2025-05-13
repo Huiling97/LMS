@@ -1,4 +1,4 @@
-import { createElement, useContext } from 'react';
+import { createElement } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu, theme } from 'antd';
 
@@ -6,7 +6,7 @@ import { HEADER_OPTIONS, MENU_OPTIONS } from './constants';
 import Breadcrumbs from '../breadcrumb';
 import AlertContent from '../../components/alert/index';
 import Home from '../../pages/home';
-import { AuthContext } from '../../store/auth-context';
+import { useAuth } from '../../store/auth-context';
 import { useError } from '../../store/error-context';
 
 const { Header, Content, Sider } = Layout;
@@ -17,7 +17,7 @@ const MainLayout = () => {
   const {
     user: { role = '' },
     logout,
-  } = useContext(AuthContext);
+  } = useAuth();
   const { error, clearError } = useError();
   const {
     token: { colorBgContainer, borderRadiusLG },

@@ -1,7 +1,6 @@
-import { useContext } from 'react';
-
 import CardContent from '../components/card';
-import { AuthContext } from '../store/auth-context';
+import { useAuth } from '../store/auth-context';
+import { isInstructor } from '../util/roles-helper';
 
 const COURSES_INFO = [
   { cardTitle: 'Web Development', cardContent: 'Topics: 112098, 122020' },
@@ -27,18 +26,20 @@ const SUBSCRIBED_TOPICS_INFO = [
 const Home = () => {
   const {
     user: { username = '' },
-  } = useContext(AuthContext);
+  } = useAuth();
 
   return (
     <>
       <h1>Welcome, {username}!</h1>
-      <div className='home-content-wrapper'>
-        <CardContent mainTitle={'Your Courses'} data={COURSES_INFO} />
-        <CardContent
-          mainTitle={'Your Subscribed Topics'}
-          data={SUBSCRIBED_TOPICS_INFO}
-        />
-      </div>
+      {isInstructor() && (
+        <div className='home-content-wrapper'>
+          <CardContent mainTitle={'Your Courses'} data={COURSES_INFO} />
+          <CardContent
+            mainTitle={'Your Subscribed Topics'}
+            data={SUBSCRIBED_TOPICS_INFO}
+          />
+        </div>
+      )}
     </>
   );
 };
