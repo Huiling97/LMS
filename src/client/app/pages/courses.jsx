@@ -1,9 +1,9 @@
-import { useContext, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import DataTable from '../components/table';
 import { getCourses } from '../service/courses-service';
-import { CoursesContext } from '../store/courses-context';
+import { useCourses } from '../store/courses-context';
 import { useError } from '../store/error-context';
 
 const getCourseColumns = (navigate) => [
@@ -39,7 +39,7 @@ const getCourseColumns = (navigate) => [
 
 const Courses = () => {
   const navigate = useNavigate();
-  const { courses, setCourses } = useContext(CoursesContext);
+  const { courses, setCourses } = useCourses();
   const { clearError, setError } = useError();
 
   const columns = useMemo(() => getCourseColumns(navigate), [navigate]);

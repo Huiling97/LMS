@@ -1,11 +1,8 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
-const CoursesContext = createContext({
-  courses: [],
-  getSelectedCourse: () => {},
-  setCourses: () => {},
-  setCourseTopics: () => {},
-});
+const CoursesContext = createContext();
+
+const useCourses = () => useContext(CoursesContext);
 
 const coursesReducer = (state, action) => {
   switch (action.type) {
@@ -44,4 +41,4 @@ const CoursesContextProvider = ({ children }) => {
   );
 };
 
-export { CoursesContext, CoursesContextProvider };
+export { CoursesContextProvider, useCourses };

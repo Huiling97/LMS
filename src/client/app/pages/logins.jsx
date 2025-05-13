@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import DataTable from '../components/table';
 import { getLogins } from '../service/logins-service';
-import { useLoginsContext } from '../store/logins-context';
+import { useLogins } from '../store/logins-context';
 import { useError } from '../store/error-context';
 
 const columns = [
@@ -20,7 +20,7 @@ const columns = [
 
 const Logins = () => {
   const { clearError, setError } = useError();
-  const { state, setState } = useLoginsContext();
+  const { state, setState } = useLogins();
 
   useEffect(() => {
     const getLoginsData = async () => {

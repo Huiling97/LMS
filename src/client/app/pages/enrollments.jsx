@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import DataTable from '../components/table';
 import { getEnrollments } from '../service/enrollments-service';
-import { useEnrollmentsContext } from '../store/enrollments-context';
+import { useEnrollments } from '../store/enrollments-context';
 import { useError } from '../store/error-context';
 
 const columns = [
@@ -29,7 +29,7 @@ const columns = [
 ];
 
 const Enrollments = () => {
-  const { state, setState } = useEnrollmentsContext();
+  const { state, setState } = useEnrollments();
   const { clearError, setError } = useError();
 
   useEffect(() => {
