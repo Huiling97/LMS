@@ -1,4 +1,4 @@
-const { db } = require('../database.cjs');
+import db from '../database.js';
 
 const getEnrollments = async () => {
   const q = 'SELECT * FROM enrollment';
@@ -12,6 +12,4 @@ const getEnrollments = async () => {
   }
 };
 
-module.exports = {
-  getEnrollments,
-};
+export { getEnrollments };

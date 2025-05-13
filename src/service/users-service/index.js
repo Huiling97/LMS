@@ -1,5 +1,5 @@
-const { getUsers } = require('./database.cjs');
-const { URLConstants } = require('../util/url-constants.cjs');
+import { getUsers } from './database.js';
+import URLConstants from '../util/url-constants.js';
 
 const usersRequestHandler = (app) => {
   app.get(`${URLConstants.USERS_PATH}/all`, async (_, res) => {
@@ -13,4 +13,4 @@ const usersRequestHandler = (app) => {
   });
 };
 
-module.exports = { usersRequestHandler };
+export { usersRequestHandler };
