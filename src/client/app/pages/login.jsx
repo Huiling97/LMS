@@ -1,16 +1,17 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 
 import AlertContent from '../components/alert';
-import { AuthContext } from '../store/auth-context';
+import { useAuth } from '../store/auth-context';
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const { login } = useAuth();
 
   const onFinish = async (values) => {
     try {
       await login(values.username, values.password);
+
       setError(null);
     } catch (e) {
       setError('Invalid Credentials');

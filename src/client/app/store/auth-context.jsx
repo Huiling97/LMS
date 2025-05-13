@@ -1,10 +1,12 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import URLConstants from '../util/url-constants';
 
 const AuthContext = createContext();
+
+const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -53,4 +55,4 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-export { AuthContext, AuthProvider };
+export { AuthProvider, useAuth };
