@@ -1,12 +1,12 @@
-import { useContext, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Divider } from 'antd';
 
 import DataTable from '../components/table';
 import { getTopics, getTopicsByCourseId } from '../service/topics-service';
-import { CoursesContext } from '../store/courses-context';
+import { useCourses } from '../store/courses-context';
 import { useError } from '../store/error-context';
-import { TopicsContext } from '../store/topics-context';
+import { useTopics } from '../store/topics-context';
 
 const getTopicColumns = (navigate) => [
   {
@@ -63,9 +63,9 @@ const getTopicColumns = (navigate) => [
 const Topics = () => {
   const navigate = useNavigate();
   const { courseId } = useParams();
-  const { getSelectedCourse } = useContext(CoursesContext);
-  const { topics, setTopics } = useContext(TopicsContext);
+  const { getSelectedCourse } = useCourses();
   const { clearError, setError } = useError();
+  const { topics, setTopics } = useTopics();
 
   const columns = useMemo(() => getTopicColumns(navigate), [navigate]);
   const courseName = getSelectedCourse(courseId)?.course_name;

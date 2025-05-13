@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import DataTable from '../components/table';
 import { getUsers } from '../service/users-service';
 import { useError } from '../store/error-context';
-import { useUsersContext } from '../store/users-context';
+import { useUsers } from '../store/users-context';
 
 const columns = [
   {
@@ -29,8 +29,8 @@ const columns = [
 ];
 
 const Users = () => {
-  const { state, setState } = useUsersContext();
   const { clearError, setError } = useError();
+  const { state, setState } = useUsers();
 
   useEffect(() => {
     const getUsersData = async () => {

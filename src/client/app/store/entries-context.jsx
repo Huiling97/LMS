@@ -1,3 +1,3 @@
 import { genericContext } from './generic-context';
 
-export const [EntriesContextProvider, useEntriesContext] = genericContext([]);
+export const [EntriesContextProvider, useEntries] = genericContext([]);

@@ -1,11 +1,8 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
-const TopicsContext = createContext({
-  topics: [],
-  getSelectedTopic: () => {},
-  setTopics: () => {},
-  setTopicEntries: () => {},
-});
+const TopicsContext = createContext();
+
+const useTopics = () => useContext(TopicsContext);
 
 const topicsReducer = (state, action) => {
   switch (action.type) {
@@ -44,4 +41,4 @@ const TopicsContextProvider = ({ children }) => {
   );
 };
 
-export { TopicsContext, TopicsContextProvider };
+export { TopicsContextProvider, useTopics };
