@@ -8,4 +8,4 @@ URLConstants.LOGINS_PATH = '/api/v1/logins';
 URLConstants.TOPICS_PATH = '/api/v1/topics';
 URLConstants.USERS_PATH = '/api/v1/users';
 
-module.exports = { URLConstants };
+export default URLConstants;

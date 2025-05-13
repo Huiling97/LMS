@@ -1,4 +1,4 @@
-const { db } = require('../database.cjs');
+import db from '../database.js';
 
 const verifyLoginAuth = async (username, password) => {
   const q = 'SELECT * FROM auth WHERE username = ? AND password = ?';
@@ -12,6 +12,4 @@ const verifyLoginAuth = async (username, password) => {
   }
 };
 
-module.exports = {
-  verifyLoginAuth,
-};
+export { verifyLoginAuth };

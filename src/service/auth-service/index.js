@@ -1,5 +1,5 @@
-const { verifyLoginAuth } = require('./database.cjs');
-const { URLConstants } = require('../util/url-constants.cjs');
+import { verifyLoginAuth } from './database.cjs';
+import URLConstants from '../util/url-constants.js';
 
 const loginAuthHandler = (app) => {
   app.post(`${URLConstants.LOGIN_PATH}`, async (req, res) => {
@@ -24,4 +24,4 @@ const loginAuthHandler = (app) => {
   });
 };
 
-module.exports = { loginAuthHandler };
+export { loginAuthHandler };

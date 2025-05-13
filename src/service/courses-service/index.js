@@ -1,5 +1,5 @@
-const { getCourses } = require('./database.cjs');
-const { URLConstants } = require('../util/url-constants.cjs');
+import { getCourses } from './database.js';
+import URLConstants from '../util/url-constants.js';
 
 const coursesRequestHandler = (app) => {
   app.get(`${URLConstants.COURSES_PATH}/all`, async (_, res) => {
@@ -13,4 +13,4 @@ const coursesRequestHandler = (app) => {
   });
 };
 
-module.exports = { coursesRequestHandler };
+export { coursesRequestHandler };
