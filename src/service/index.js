@@ -1,5 +1,6 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
+
 import db from './database.js';
 
 import { coursesRequestHandler } from './courses-service/index.js';
