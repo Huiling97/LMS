@@ -30,6 +30,12 @@ Starting the client
 npm run dev:client
 ```
 
+Accessing the application
+
+```
+http://localhost:5173/
+```
+
 # User Accounts
 
 1. Instructor Account: Provides access to only the courses, topics, and entries data.
