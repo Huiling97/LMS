@@ -1,5 +1,5 @@
 import { getEnrollments } from './database.js';
-import URLConstants from '../util/url-constants.js';
+import URLConstants from '../../shared/util/url-constants.js';
 
 const enrollmentsRequestHandler = (app) => {
   app.get(`${URLConstants.ENROLLMENTS_PATH}/all`, async (_, res) => {
@@ -8,7 +8,7 @@ const enrollmentsRequestHandler = (app) => {
 
       res.status(200).send(enrollments);
     } catch (e) {
-      res.status(500).send({ error: 'Internal server error' });
+      res.status(500).send({ error: e.message || 'Database error' });
     }
   });
 };

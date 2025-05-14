@@ -1,5 +1,5 @@
 import { getCourses } from './database.js';
-import URLConstants from '../util/url-constants.js';
+import URLConstants from '../../shared/util/url-constants.js';
 
 const coursesRequestHandler = (app) => {
   app.get(`${URLConstants.COURSES_PATH}/all`, async (_, res) => {

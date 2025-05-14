@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import URLConstants from '../util/url-constants';
+import URLConstants from '../../../shared/util/url-constants';
 
 const AuthContext = createContext();
 

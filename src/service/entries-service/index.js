@@ -1,5 +1,5 @@
 import { getEntries, getEntriesByTopicId } from './database.js';
-import URLConstants from '../util/url-constants.js';
+import URLConstants from '../../shared/util/url-constants.js';
 
 const entiresRequestHandler = (app) => {
   app.get(`${URLConstants.ENTRIES_PATH}/all`, async (_, res) => {
@@ -8,7 +8,7 @@ const entiresRequestHandler = (app) => {
 
       res.status(200).send(entries);
     } catch (e) {
-      res.status(500).send({ error: 'Internal server error' });
+      res.status(500).send({ error: e.message || 'Database error' });
     }
   });
 
@@ -22,7 +22,7 @@ const entiresRequestHandler = (app) => {
 
         res.status(200).send(entries);
       } catch (e) {
-        res.status(500).send({ error: 'Internal server error' });
+        res.status(500).send({ error: e.message || 'Database error' });
       }
     }
   );

@@ -1,6 +1,8 @@
 const URLConstants = {};
 
-URLConstants.BASE = 'http://localhost:3001';
+const isDev =
+  typeof window !== 'undefined' && window.location.hostname === 'localhost';
+URLConstants.BASE = isDev ? 'http://localhost:3001' : '';
 
 URLConstants.LOGIN_PATH = `${URLConstants.BASE}/api/v1/login`;
 URLConstants.COURSES_PATH = `${URLConstants.BASE}/api/v1/courses`;
