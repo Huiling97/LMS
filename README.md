@@ -12,15 +12,21 @@ It consists of two main components:
 
 Install the dependencies
 
-`npm install`
+```
+npm install
+```
 
 Starting the server
 
-`npm run dev:service`
+```
+npm run dev:service
+```
 
 Starting the client
 
-`npm run dev:client`
+```
+npm run dev:client
+```
 
 # User Accounts
 
