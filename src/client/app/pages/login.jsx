@@ -35,7 +35,7 @@ const Login = () => {
           name='username'
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
-          <Input />
+          <Input autoComplete='username' />
         </Form.Item>
 
         <Form.Item
@@ -43,7 +43,7 @@ const Login = () => {
           name='password'
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
-          <Input.Password />
+          <Input.Password autoComplete='current-password' />
         </Form.Item>
 
         <Form.Item name='remember' valuePropName='checked' label={null}>
