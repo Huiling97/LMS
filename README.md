@@ -8,6 +8,8 @@ It consists of two main components:
 
 - Service: Located in the src/service directory, responsible for interacting with the MySQL database hosted on Aiven to fetch and manage data.
 
+- Shared: Located in the src/shared directory, contains file shared across both client and service folders.
+
 # How to Start the Application
 
 Install the dependencies
@@ -30,9 +32,17 @@ npm run dev:client
 
 # User Accounts
 
-- Instructor Account: Provides access to only the courses, topics, and entries data.
+1. Instructor Account: Provides access to only the courses, topics, and entries data.
 
-- Admin Account: Has full access to all available data, including login activities and management actions.
+- Credentials:
+  - Username: instructor
+  - Password: asd
+
+2. Admin Account: Has full access to all available data, including login activities and management actions.
+
+- Credentials:
+  - Username: admin
+  - Password: asd
 
 # Design Decisions
 
