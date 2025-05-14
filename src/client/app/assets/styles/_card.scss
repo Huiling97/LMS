@@ -1,5 +1,17 @@
 .card-wrapper {
   display: flex;
-  flex-direction: column;
-  row-gap: 10px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card-content-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inner-card {
+  flex: 1 1 250px;
+  min-width: 250px;
+  max-width: 300px;
 }
