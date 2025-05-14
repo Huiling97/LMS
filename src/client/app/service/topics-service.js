@@ -1,5 +1,5 @@
 import axios from 'axios';
-import URLConstants from '../util/url-constants';
+import URLConstants from '../../../shared/util/url-constants';
 
 const getTopics = async () => {
   try {

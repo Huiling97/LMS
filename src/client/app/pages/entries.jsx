@@ -97,7 +97,7 @@ const Entries = () => {
       <DataTable
         columns={columns}
         data={state}
-        rowKey={(record) => record.entry_id}
+        rowKey={({ entry_id }) => entry_id}
       />
     </>
   );

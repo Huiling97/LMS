@@ -1,19 +1,15 @@
 import { useAuth } from '../store/auth-context';
 
-const isAdmin = () => {
+const getRole = () => {
   const {
     user: { role },
   } = useAuth();
 
-  return role === 'admin';
+  return role;
 };
 
-const isInstructor = () => {
-  const {
-    user: { role },
-  } = useAuth();
+const isAdmin = () => getRole() === 'admin';
 
-  return role === 'instructor';
-};
+const isInstructor = () => getRole() === 'instructor';
 
 export { isAdmin, isInstructor };

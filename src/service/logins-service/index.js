@@ -1,5 +1,5 @@
 import { getLogins } from './database.js';
-import URLConstants from '../util/url-constants.js';
+import URLConstants from '../../shared/util/url-constants.js';
 
 const loginsRequestHandler = (app) => {
   app.get(`${URLConstants.LOGINS_PATH}/all`, async (_, res) => {
@@ -8,7 +8,7 @@ const loginsRequestHandler = (app) => {
 
       res.status(200).send(logins);
     } catch (e) {
-      res.status(500).send({ error: 'Internal server error' });
+      res.status(500).send({ error: e.message || 'Database error' });
     }
   });
 };

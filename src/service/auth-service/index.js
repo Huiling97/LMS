@@ -1,5 +1,5 @@
 import { verifyLoginAuth } from './database.js';
-import URLConstants from '../util/url-constants.js';
+import URLConstants from '../../shared/util/url-constants.js';
 
 const loginAuthHandler = (app) => {
   app.post(`${URLConstants.LOGIN_PATH}`, async (req, res) => {
@@ -19,7 +19,7 @@ const loginAuthHandler = (app) => {
         role,
       });
     } catch (e) {
-      res.status(500).send({ error: 'Internal server error' });
+      res.status(500).send({ error: e.message || 'Database error' });
     }
   });
 };
