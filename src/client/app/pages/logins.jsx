@@ -41,7 +41,7 @@ const Logins = () => {
     <DataTable
       columns={columns}
       data={state}
-      rowKey={(record) => record.user_id}
+      rowKey={({ user_id }) => user_id}
     />
   );
 };
